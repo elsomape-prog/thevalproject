@@ -1,0 +1,2625 @@
+/* =====================================================
+   1. PALETA Y CONFIGURACIÓN GENERAL
+===================================================== */
+
+:root {
+    --lavanda: #a494ff;
+    --lavanda-clara: #eee9ff;
+    --morado: #7568e8;
+    --morado-oscuro: #5a4fcf;
+    --azul: #667eea;
+    --azul-oscuro: #4c5fd5;
+    --texto: #625a78;
+    --blanco: #ffffff;
+
+    --borde-suave: rgba(164, 148, 255, 0.30);
+    --sombra:
+        0 18px 45px rgba(55, 39, 103, 0.16),
+        0 4px 14px rgba(55, 39, 103, 0.08);
+
+    --degradado:
+        linear-gradient(135deg, #ffffff 0%, #faf8ff 55%, #f0ebff 100%);
+
+    --degradado-lavanda:
+        linear-gradient(135deg, #faf8ff, #eee8ff);
+
+    --degradado-boton:
+        linear-gradient(135deg, #667eea, #7568e8, #9284f0);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+    isolation: isolate;
+    margin: 0;
+    min-height: 100vh;
+    padding: 30px 14px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #eee9f7;
+    background-image: url("fondo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    color: var(--texto);
+    font-family: Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Velo sutil para armonizar el fondo */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(255, 255, 255, 0.32),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(185, 167, 255, 0.20),
+            transparent 38%
+        );
+
+}
+
+/* Pequeños puntos de luz decorativos */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    opacity: 0.35;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.85) 1px,
+            transparent 1.8px
+        ),
+        radial-gradient(
+            circle,
+            rgba(164, 148, 255, 0.60) 1px,
+            transparent 2px
+        );
+
+    background-size: 95px 110px, 145px 165px;
+    background-position: 10px 20px, 60px 75px;
+}
+
+/* Tarjeta base compartida */
+
+main {
+    position: relative;
+    width: min(900px, 95vw);
+    min-height: 600px;
+    padding: 50px;
+
+    text-align: center;
+
+    background: var(--degradado);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 28px;
+
+    box-shadow: var(--sombra);
+
+    animation: entrada-pagina 0.75s ease both;
+}
+
+/* Adornos discretos en las esquinas */
+
+main:not(.choose)::before {
+    content: "✦";
+    position: absolute;
+    top: 17px;
+    left: 21px;
+
+    color: rgba(164, 148, 255, 0.80);
+    font-size: 23px;
+
+    pointer-events: none;
+}
+
+main:not(.choose)::after {
+    content: "♡";
+    position: absolute;
+    right: 21px;
+    bottom: 14px;
+
+    color: rgba(164, 148, 255, 0.75);
+    font-size: 25px;
+
+    pointer-events: none;
+}
+
+/* Títulos y texto general */
+
+h1 {
+    margin-top: 0;
+    color: var(--morado-oscuro);
+    font-size: 36px;
+    line-height: 1.25;
+    text-shadow: 0 3px 14px rgba(117, 104, 232, 0.14);
+}
+
+p {
+    color: var(--texto);
+    font-size: 18px;
+    line-height: 1.65;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Accesibilidad: foco visible con teclado */
+
+a:focus-visible {
+    outline: 3px solid var(--lavanda);
+    outline-offset: 5px;
+}
+
+/* =====================================================
+   2. PÁGINA DE INICIO
+===================================================== */
+
+.inicio {
+    width: min(900px, 95vw);
+    min-height: 620px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 14px;
+    overflow: hidden;
+}
+
+.carta {
+    position: relative;
+    width: min(450px, 100%);
+    height: 300px;
+    margin-bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Resplandor suave detrás de la carta */
+
+.carta::before {
+    content: "";
+    position: absolute;
+    width: 78%;
+    height: 65%;
+    left: 11%;
+    top: 20%;
+
+    border-radius: 50%;
+    background: rgba(164, 148, 255, 0.20);
+    filter: blur(35px);
+
+    pointer-events: none;
+}
+
+.carta img {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    filter: drop-shadow(0 12px 18px rgba(78, 60, 140, 0.12));
+    box-shadow: none;
+
+    animation: carta-flotar 4s ease-in-out infinite;
+}
+
+.corazon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+
+    transform: translate(-50%, -50%);
+
+    color: var(--morado);
+    font-size: 85px;
+    text-shadow: 0 0 25px rgba(164, 148, 255, 0.40);
+
+    animation: latido 1.8s ease-in-out infinite;
+}
+
+.mensaje-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 4px;
+}
+
+.mensaje-index p {
+    margin: 0 0 25px;
+
+    color: var(--texto);
+    font-family: Georgia, serif;
+    font-size: 22px;
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+}
+
+/* Botón principal */
+
+.boton-index {
+    position: relative;
+    display: inline-block;
+
+    padding: 15px 42px;
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 14px;
+
+    background: var(--degradado-boton);
+    box-shadow:
+        0 10px 25px rgba(90, 79, 207, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+    color: var(--blanco);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        filter 0.3s ease;
+}
+
+.boton-index::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.30),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+}
+
+.boton-index:hover::before {
+    left: 150%;
+}
+
+.boton-index:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow:
+        0 15px 32px rgba(90, 79, 207, 0.32),
+        0 0 22px rgba(164, 148, 255, 0.22);
+
+    filter: brightness(1.06);
+}
+
+.boton-index:active {
+    transform: scale(0.97);
+}
+
+/* =====================================================
+   3. ESTRUCTURA GENERAL DE BOTONES E IMÁGENES
+===================================================== */
+
+.volver {
+    position: relative;
+    display: inline-block;
+
+    margin-top: 20px;
+    padding: 12px 30px;
+
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 12px;
+
+    background: var(--degradado-boton);
+    box-shadow:
+        0 7px 18px rgba(90, 79, 207, 0.19),
+        inset 0 1px 0 rgba(255, 255, 255, 0.30);
+
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+
+    transition:
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+}
+
+.volver:hover {
+    background: linear-gradient(135deg, #7568e8, #998af4);
+    box-shadow: 0 11px 24px rgba(90, 79, 207, 0.28);
+    transform: translateY(-3px);
+}
+
+.volver:active {
+    transform: scale(0.97);
+}
+
+/* Estilos genéricos para otras páginas */
+
+.pagina {
+    width: min(1000px, 95vw);
+    min-height: 700px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagen-pagina {
+    width: min(500px, 100%);
+    height: 350px;
+    margin: 20px 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagen-pagina img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.20);
+}
+
+/* =====================================================
+   4. MENÚ: YOU CHOOSE
+===================================================== */
+
+.choose {
+    width: min(1050px, 96vw);
+    min-height: 700px;
+    padding: 40px 25px;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 40%,
+            rgba(164, 148, 255, 0.12),
+            transparent 50%
+        ),
+        var(--degradado);
+}
+
+/* Brillo ambiental del menú */
+
+.choose::before {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    left: 50%;
+    top: 100px;
+
+    transform: translateX(-50%);
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(164, 148, 255, 0.16),
+        rgba(164, 148, 255, 0.05) 45%,
+        transparent 70%
+    );
+
+    pointer-events: none;
+}
+
+.choose h1 {
+    position: relative;
+    z-index: 20;
+
+    margin: 0 0 5px;
+
+    color: var(--morado-oscuro);
+    font-size: 42px;
+    letter-spacing: 3px;
+    text-decoration: underline;
+    text-decoration-color: rgba(164, 148, 255, 0.70);
+    text-underline-offset: 8px;
+
+    text-shadow: 0 4px 14px rgba(90, 79, 207, 0.15);
+}
+
+.choose h1::before,
+.choose h1::after {
+    position: absolute;
+    top: -5px;
+
+    color: var(--lavanda);
+    font-size: 25px;
+
+    animation: choose-corazon 2.5s ease-in-out infinite;
+}
+
+.choose h1::before {
+    content: "♡";
+    left: calc(50% - 100px);
+}
+
+.choose h1::after {
+    content: "♡";
+    left: calc(50% + 75px);
+    animation-direction: reverse;
+}
+
+/* Zona que rodea la imagen central */
+
+.choose .arco {
+    position: relative;
+    left: 50%;
+
+    width: 1000px;
+    max-width: 100%;
+    height: 500px;
+    margin: 20px 0 0;
+
+    transform: translateX(-50%);
+}
+
+.choose .arco::before {
+    content: "";
+    position: absolute;
+
+    width: 430px;
+    height: 430px;
+    left: 50%;
+    top: 50px;
+
+    transform: translateX(-50%);
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(164, 148, 255, 0.23) 0%,
+        rgba(164, 148, 255, 0.11) 35%,
+        rgba(164, 148, 255, 0.04) 58%,
+        transparent 72%
+    );
+
+    filter: blur(5px);
+    animation: choose-aura 4s ease-in-out infinite;
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+.choose .arco::after {
+    content: "✦     ♡     ✦     ♡     ✦";
+
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+
+    color: rgba(164, 148, 255, 0.40);
+    font-size: 18px;
+    letter-spacing: 7px;
+
+    pointer-events: none;
+    z-index: 2;
+
+    animation: choose-destellos 5s ease-in-out infinite;
+}
+
+/* Botones del menú */
+
+.choose .boton {
+    position: absolute;
+    z-index: 10;
+
+    width: 175px;
+    height: 65px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 17px;
+
+    background: var(--degradado-boton);
+
+    box-shadow:
+        0 10px 25px rgba(90, 79, 207, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+
+    transition:
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+}
+
+.choose .boton::before {
+    content: "✦";
+    position: absolute;
+    top: -12px;
+    left: 12px;
+
+    color: var(--lavanda);
+    font-size: 20px;
+    opacity: 0.8;
+
+    animation: boton-estrella 2.5s ease-in-out infinite;
+}
+
+.choose .boton::after {
+    content: "♡";
+    position: absolute;
+    right: 12px;
+    bottom: -15px;
+
+    color: var(--lavanda);
+    font-size: 23px;
+    opacity: 0.8;
+
+    animation: boton-corazon 3s ease-in-out infinite;
+}
+
+.choose .boton:hover {
+    background: linear-gradient(135deg, #7568e8, #998af4);
+
+    transform: scale(1.06) translateY(-4px);
+
+    box-shadow:
+        0 15px 35px rgba(90, 79, 207, 0.30),
+        0 0 25px rgba(164, 148, 255, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.40);
+}
+
+.choose .boton:active {
+    transform: scale(0.97);
+}
+
+/* Posiciones originales del menú */
+
+.choose .boton1 {
+    left: calc(50% - 87.5px);
+    top: 475px;
+}
+
+.choose .boton4 {
+    left: 125px;
+    top: 267.5px;
+}
+
+.choose .boton3 {
+    left: calc(50% - 87.5px);
+    top: 35px;
+}
+
+.choose .boton2 {
+    right: 125px;
+    top: 267.5px;
+}
+
+/* Imagen central */
+
+.choose .imagen-choose {
+    position: absolute;
+    z-index: 5;
+
+    left: 50%;
+    top: 160px;
+
+    width: 280px;
+    height: 280px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform: translateX(-50%);
+}
+
+.choose .imagen-choose::before {
+    content: "";
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(164, 148, 255, 0.32);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 25px rgba(164, 148, 255, 0.20),
+        0 0 55px rgba(164, 148, 255, 0.10),
+        inset 0 0 25px rgba(164, 148, 255, 0.07);
+
+    animation: choose-circulo 16s linear infinite;
+    pointer-events: none;
+}
+
+.choose .imagen-choose::after {
+    content: "";
+    position: absolute;
+
+    width: 360px;
+    height: 360px;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(164, 148, 255, 0.15) 0%,
+        rgba(164, 148, 255, 0.07) 40%,
+        transparent 70%
+    );
+
+    filter: blur(5px);
+    animation: choose-resplandor 4s ease-in-out infinite;
+
+    pointer-events: none;
+    z-index: -1;
+}
+
+.choose .imagen-choose img {
+    position: relative;
+    z-index: 3;
+
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    border-radius: 0;
+    box-shadow: none;
+
+    filter: drop-shadow(0 10px 18px rgba(90, 79, 207, 0.16));
+
+    animation: choose-imagen 4s ease-in-out infinite;
+}
+
+.choose .volver {
+    position: relative;
+    z-index: 20;
+}
+
+/* =====================================================
+   5. GORGEOUS
+===================================================== */
+
+.gorgeous-pagina {
+    width: min(1100px, 96vw);
+    min-height: 0;
+    height: auto;
+
+    padding: 35px 30px;
+
+    position: relative;
+    overflow: visible;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 35%,
+            rgba(164, 148, 255, 0.09),
+            transparent 55%
+        ),
+        var(--degradado);
+}
+
+.gorgeous-pagina h1 {
+    position: relative;
+    z-index: 20;
+
+    margin: 0 0 15px;
+
+    text-decoration: underline;
+    text-decoration-color: rgba(164, 148, 255, 0.7);
+    text-underline-offset: 8px;
+}
+
+.gorgeous-contenido {
+    position: relative;
+    width: 100%;
+    height: 620px;
+}
+
+/* Mensaje central */
+
+.mensaje-final-gorgeous {
+    position: absolute;
+    z-index: 20;
+
+    width: 410px;
+    max-width: 410px;
+    left: 50%;
+    top: 10px;
+
+    transform: translateX(-50%);
+
+    padding: 14px 18px;
+
+    background: var(--degradado-lavanda);
+    border: 1px solid var(--borde-suave);
+    border-radius: 20px;
+
+    box-shadow:
+        0 9px 22px rgba(90, 79, 207, 0.13),
+        inset 0 1px 0 rgba(255, 255, 255, 0.80);
+
+    color: var(--texto);
+    font-family: Georgia, serif;
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.mensaje-final-gorgeous::before {
+    content: "✦";
+    position: absolute;
+    top: -13px;
+    left: 12px;
+
+    color: var(--lavanda);
+    font-size: 21px;
+}
+
+.mensaje-final-gorgeous::after {
+    content: "♡";
+    position: absolute;
+    right: 12px;
+    bottom: -15px;
+
+    color: var(--lavanda);
+    font-size: 21px;
+}
+
+/* Ocho mensajes alrededor de la imagen */
+
+.mensaje-gorgeous {
+    position: absolute;
+    z-index: 15;
+
+    width: 230px;
+    padding: 18px 20px;
+
+    background: var(--degradado-lavanda);
+    border: 1px solid var(--borde-suave);
+    border-radius: 20px;
+
+    box-shadow:
+        0 9px 22px rgba(90, 79, 207, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+    color: var(--texto);
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.45;
+    text-align: center;
+
+    animation: mensaje-gorgeous-mover 4s ease-in-out infinite;
+
+    transition:
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+.mensaje-gorgeous::before {
+    content: "✦";
+    position: absolute;
+    top: -15px;
+    left: 15px;
+
+    color: var(--lavanda);
+    font-size: 25px;
+
+    animation: mensaje-estrella 3s ease-in-out infinite;
+}
+
+.mensaje-gorgeous::after {
+    content: "♡";
+    position: absolute;
+    right: 15px;
+    bottom: -17px;
+
+    color: var(--lavanda);
+    font-size: 25px;
+
+    animation: mensaje-corazon 3s ease-in-out infinite;
+}
+
+.mensaje-gorgeous:hover {
+    animation-play-state: paused;
+
+    background: linear-gradient(135deg, #ffffff, #e9e1ff);
+
+    box-shadow:
+        0 14px 30px rgba(90, 79, 207, 0.22),
+        0 0 20px rgba(164, 148, 255, 0.12);
+
+    transform: scale(1.04);
+}
+
+/* Posiciones de los mensajes */
+
+.mensaje1 {
+    left: 0;
+    top: 25px;
+    animation-delay: 0s;
+}
+
+.mensaje2 {
+    left: 0;
+    top: 175px;
+    animation-delay: 0.4s;
+}
+
+.mensaje3 {
+    left: 0;
+    top: 325px;
+    animation-delay: 0.8s;
+}
+
+.mensaje4 {
+    left: 0;
+    top: 475px;
+    animation-delay: 1.2s;
+}
+
+.mensaje5 {
+    right: 0;
+    top: 25px;
+    animation-delay: 0.2s;
+}
+
+.mensaje6 {
+    right: 0;
+    top: 175px;
+    animation-delay: 0.6s;
+}
+
+.mensaje7 {
+    right: 0;
+    top: 325px;
+    animation-delay: 1s;
+}
+
+.mensaje8 {
+    right: 0;
+    top: 475px;
+    animation-delay: 1.4s;
+}
+
+/* Ilustración central */
+
+.gorgeous-contenido .imagen-gorgeous {
+    position: absolute;
+    z-index: 5;
+
+    width: 600px;
+    height: 360px;
+    left: 50%;
+    top: 220px;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.gorgeous-contenido .imagen-gorgeous img {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    filter: drop-shadow(0 10px 20px rgba(90, 79, 207, 0.12));
+}
+
+.gorgeous-pagina .volver {
+    position: relative;
+    z-index: 20;
+
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* =====================================================
+   6. GALLERY
+===================================================== */
+
+.gallery-pagina {
+    width: min(1250px, 96vw);
+    min-height: 600px;
+
+    padding: 15px 25px 25px;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 40%,
+            rgba(164, 148, 255, 0.09),
+            transparent 58%
+        ),
+        var(--degradado);
+}
+
+.gallery-pagina h1 {
+    position: relative;
+
+    margin: 15px 0 20px;
+
+    color: var(--morado-oscuro);
+    font-size: 42px;
+    text-decoration: underline;
+    text-decoration-color: rgba(164, 148, 255, 0.7);
+    text-underline-offset: 8px;
+}
+
+/* Texto de introducción */
+
+.texto-gallery {
+    position: relative;
+    z-index: 20;
+
+    width: min(600px, 100%);
+    margin: 10px auto 20px;
+    padding: 23px 32px;
+
+    background: var(--degradado-lavanda);
+    border: 1px solid var(--borde-suave);
+    border-radius: 24px;
+
+    box-shadow:
+        0 9px 22px rgba(90, 79, 207, 0.13),
+        inset 0 1px 0 rgba(255, 255, 255, 0.80);
+
+    color: var(--texto);
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.65;
+    text-align: center;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.texto-gallery:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 13px 28px rgba(90, 79, 207, 0.17),
+        inset 0 1px 0 rgba(255, 255, 255, 0.80);
+}
+
+.texto-gallery::before,
+.texto-gallery::after {
+    position: absolute;
+
+    color: var(--lavanda);
+    font-size: 25px;
+}
+
+.texto-gallery::before {
+    content: "✦";
+    top: -15px;
+    left: 15px;
+}
+
+.texto-gallery::after {
+    content: "✦";
+    right: 15px;
+    bottom: -15px;
+}
+
+.texto-gallery p {
+    margin: 0;
+
+    color: var(--texto);
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.65;
+    text-align: center;
+}
+
+/* Zona de las imágenes flotantes */
+
+.gallery-contenido {
+    position: relative;
+
+    width: min(1150px, 100%);
+    height: 520px;
+    margin-top: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: visible;
+}
+
+/* Imagen central */
+
+.imagen-gallery {
+    position: absolute;
+    z-index: 10;
+
+    width: 620px;
+    height: 460px;
+    left: 50%;
+    top: 20px;
+
+    transform: translateX(-50%) rotate(1deg);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: filter 0.35s ease;
+}
+
+.imagen-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    filter: drop-shadow(0 12px 20px rgba(90, 79, 207, 0.12));
+}
+
+.imagen-gallery:hover {
+    filter: drop-shadow(0 0 15px rgba(164, 148, 255, 0.15));
+}
+
+/* Imágenes secundarias */
+
+.gallery-extra {
+    position: absolute;
+    z-index: 15;
+
+    padding: 8px;
+    box-sizing: border-box;
+
+    object-fit: contain;
+
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+
+    box-shadow:
+        0 9px 22px rgba(47, 34, 82, 0.19),
+        0 2px 5px rgba(47, 34, 82, 0.07);
+
+    transition:
+        box-shadow 0.35s ease,
+        filter 0.35s ease;
+}
+
+.gallery-extra:hover {
+    z-index: 50;
+
+    transform: scale(1.15) !important;
+
+    box-shadow:
+        0 15px 30px rgba(47, 34, 82, 0.24),
+        0 0 18px rgba(164, 148, 255, 0.22);
+
+    filter: brightness(1.03);
+}
+
+/* Posiciones originales conservadas */
+
+.gallery-extra.light {
+    width: 140px;
+    height: 140px;
+    left: 40px;
+    top: 10px;
+
+    transform: rotate(-12deg);
+    animation: flotar-light 4s ease-in-out infinite;
+}
+
+.gallery-extra.god {
+    width: 155px;
+    height: 155px;
+    right: 30px;
+    top: 0;
+
+    transform: rotate(10deg);
+    animation: flotar-god 4s ease-in-out infinite;
+}
+
+.gallery-extra.tomo {
+    width: 125px;
+    height: 125px;
+    right: 185px;
+    top: -50px;
+
+    transform: rotate(-6deg);
+    animation: flotar-tomo 4.5s ease-in-out infinite;
+}
+
+.gallery-extra.clas {
+    width: 140px;
+    height: 140px;
+    left: 15px;
+    bottom: 70px;
+
+    transform: rotate(8deg);
+    animation: flotar-clas 4.2s ease-in-out infinite;
+}
+
+.gallery-extra.ice {
+    width: 145px;
+    height: 145px;
+    right: 10px;
+    bottom: 80px;
+
+    transform: rotate(-8deg);
+    animation: flotar-ice 4.3s ease-in-out infinite;
+}
+
+.gallery-extra.lewis {
+    width: 125px;
+    height: 125px;
+    left: 190px;
+    top: -50px;
+
+    transform: rotate(-5deg);
+    animation: flotar-lewis 4.5s ease-in-out infinite;
+}
+
+.gallery-extra.sylveon {
+    width: 125px;
+    height: 125px;
+    right: 220px;
+    bottom: 10px;
+
+    transform: rotate(7deg);
+    animation: flotar-sylveon 4.4s ease-in-out infinite;
+}
+
+.gallery-extra.kit {
+    width: 115px;
+    height: 115px;
+    left: 230px;
+    bottom: 15px;
+
+    transform: rotate(-10deg);
+    animation: flotar-kit 4.6s ease-in-out infinite;
+}
+
+/* Estrellas: disponibles si se usan en el HTML */
+
+.estrella {
+    position: absolute;
+
+    color: var(--lavanda);
+    font-size: 40px;
+    opacity: 0.5;
+
+    animation: brillo 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.estrella1 {
+    left: 260px;
+    top: 25px;
+}
+
+.estrella2 {
+    right: 260px;
+    top: 60px;
+}
+
+.estrella3 {
+    left: 310px;
+    bottom: 70px;
+}
+
+.estrella4 {
+    right: 310px;
+    bottom: 40px;
+}
+
+.gallery-pagina .volver {
+    margin-top: 15px;
+}
+
+/* =====================================================
+   7. PLAYLIST
+===================================================== */
+
+.playlist-pagina {
+    width: min(1100px, 96vw);
+    min-height: 750px;
+
+    background:
+        radial-gradient(
+            ellipse at 80% 20%,
+            rgba(164, 148, 255, 0.10),
+            transparent 42%
+        ),
+        var(--degradado);
+}
+
+.playlist-pagina h1 {
+    position: relative;
+
+    margin: 0 0 55px;
+
+    color: var(--morado-oscuro);
+    text-decoration: underline;
+    text-decoration-color: rgba(164, 148, 255, 0.7);
+    text-underline-offset: 8px;
+}
+
+/* Contenedor principal */
+
+.playlist-contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 45px;
+    margin-top: 0;
+}
+
+/* Reproductor de Spotify */
+
+.spotify {
+    width: 550px;
+    flex: 1 1 0;
+
+    margin-top: 35px;
+
+    overflow: hidden;
+    border: 1px solid rgba(164, 148, 255, 0.18);
+    border-radius: 19px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 12px 28px rgba(47, 34, 82, 0.15),
+        0 2px 6px rgba(47, 34, 82, 0.05);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.spotify:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 17px 34px rgba(47, 34, 82, 0.19),
+        0 0 17px rgba(164, 148, 255, 0.12);
+}
+
+.spotify iframe {
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+}
+
+/* Columna del mensaje y portada */
+
+.playlist-derecha {
+    position: relative;
+
+    width: 350px;
+    flex: 0 0 350px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    padding-top: 20px;
+}
+
+/* Tarjeta de dedicatoria */
+
+.texto-playlist {
+    position: relative;
+    z-index: 20;
+
+    width: 330px;
+    margin: 0 0 10px;
+    padding: 25px 30px;
+
+    background: var(--degradado-lavanda);
+    border: 1px solid var(--borde-suave);
+    border-radius: 24px;
+
+    box-shadow:
+        0 10px 25px rgba(90, 79, 207, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.80);
+
+    color: var(--texto);
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: center;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.texto-playlist:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 14px 30px rgba(90, 79, 207, 0.19),
+        inset 0 1px 0 rgba(255, 255, 255, 0.80);
+}
+
+.texto-playlist::before,
+.texto-playlist::after {
+    position: absolute;
+
+    color: var(--lavanda);
+    font-size: 25px;
+}
+
+.texto-playlist::before {
+    content: "✦";
+    top: -15px;
+    left: 15px;
+}
+
+.texto-playlist::after {
+    content: "✦";
+    right: 15px;
+    bottom: -15px;
+}
+
+.texto-playlist p {
+    margin: 0 0 14px;
+
+    color: var(--texto);
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.texto-playlist p:last-child {
+    margin-bottom: 0;
+}
+
+/* Portada de la playlist */
+
+.portada-playlist {
+    position: relative;
+
+    width: 350px;
+    height: 350px;
+    margin-top: 5px;
+}
+
+.portada-playlist img {
+    position: relative;
+
+    top: 10px;
+
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    border-radius: 0;
+    box-shadow: none;
+
+    filter: drop-shadow(0 10px 15px rgba(90, 79, 207, 0.10));
+
+    animation: portada-flotar 5s ease-in-out infinite;
+}
+
+.playlist-pagina .volver {
+    display: inline-block;
+    margin-top: 25px;
+}
+
+/* =====================================================
+   8. POEMA
+===================================================== */
+
+.poem-pagina {
+    width: min(1100px, 95vw);
+    max-width: 1100px;
+    min-height: 0;
+
+    padding: 30px 35px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+
+    background: var(--degradado);
+    border: 1px solid rgba(164, 148, 255, 0.20);
+    border-radius: 24px;
+
+    box-shadow: var(--sombra);
+}
+
+.poem-pagina h1 {
+    margin: 0 0 25px;
+
+    color: var(--morado-oscuro);
+    font-size: 36px;
+
+    text-decoration: underline;
+    text-decoration-color: rgba(164, 148, 255, 0.7);
+    text-underline-offset: 8px;
+}
+
+/* Marco ornamental */
+
+.poema-texto {
+    position: relative;
+
+    width: 100%;
+    max-width: 1020px;
+
+    padding: 30px 32px;
+    box-sizing: border-box;
+
+    background: var(--degradado-lavanda);
+    border: 1px solid var(--borde-suave);
+    border-radius: 22px;
+
+    box-shadow:
+        0 9px 24px rgba(90, 79, 207, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+    color: var(--texto);
+    font-family: Georgia, serif;
+    text-align: center;
+}
+
+.poema-texto::before,
+.poema-texto::after {
+    position: absolute;
+
+    color: var(--lavanda);
+    font-size: 28px;
+
+    pointer-events: none;
+}
+
+.poema-texto::before {
+    content: "✦";
+    top: -16px;
+    left: 20px;
+}
+
+.poema-texto::after {
+    content: "♡";
+    right: 20px;
+    bottom: -19px;
+}
+
+/* Conserva el estilo si más adelante se añade un subtítulo */
+
+.poema-texto h2 {
+    margin: 0 0 24px;
+
+    color: var(--morado-oscuro);
+    font-family: Georgia, serif;
+    font-size: 27px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+/* Estrofas en dos columnas */
+
+.poema-versos {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(4, auto);
+    grid-auto-flow: column;
+
+    align-items: start;
+
+    column-gap: 35px;
+    row-gap: 18px;
+}
+
+.poema-versos p {
+    min-width: 0;
+    margin: 0;
+    padding: 0 10px 15px;
+
+    border-bottom: 1px solid rgba(164, 148, 255, 0.30);
+
+    color: var(--texto);
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    text-align: center;
+
+    transition: color 0.3s ease;
+}
+
+.poema-versos p:hover {
+    color: var(--morado-oscuro);
+}
+
+/* Separación de las estrofas */
+
+.poema-versos p:nth-child(4),
+.poema-versos p:nth-child(7) {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* Firma */
+
+.poema-firma {
+    width: 100%;
+    margin-top: 25px;
+
+    color: var(--morado-oscuro);
+    font-family: Georgia, serif;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: right;
+}
+
+.poem-pagina .volver {
+    align-self: center;
+
+    margin-top: 22px;
+    padding: 12px 30px;
+
+    font-size: 16px;
+    position: relative;
+    z-index: 20;
+}
+
+/* =====================================================
+   9. ANIMACIONES
+===================================================== */
+
+@keyframes entrada-pagina {
+    from {
+        opacity: 0;
+        translate: 0 12px;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+@keyframes latido {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.14);
+    }
+}
+
+@keyframes carta-flotar {
+    0%, 100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -6px;
+    }
+}
+
+@keyframes portada-flotar {
+    0%, 100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -7px;
+    }
+}
+
+@keyframes brillo {
+    0%, 100% {
+        opacity: 0.3;
+        scale: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+        scale: 1.2;
+    }
+}
+
+/* Galería */
+
+@keyframes flotar-light {
+    0%, 100% {
+        transform: translateY(0) rotate(-12deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(-8deg);
+    }
+}
+
+@keyframes flotar-god {
+    0%, 100% {
+        transform: translateY(0) rotate(10deg);
+    }
+
+    50% {
+        transform: translateY(8px) rotate(14deg);
+    }
+}
+
+@keyframes flotar-tomo {
+    0%, 100% {
+        transform: translateY(0) rotate(-6deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(-2deg);
+    }
+}
+
+@keyframes flotar-clas {
+    0%, 100% {
+        transform: translateY(0) rotate(8deg);
+    }
+
+    50% {
+        transform: translateY(-7px) rotate(12deg);
+    }
+}
+
+@keyframes flotar-ice {
+    0%, 100% {
+        transform: translateY(0) rotate(-8deg);
+    }
+
+    50% {
+        transform: translateY(7px) rotate(-4deg);
+    }
+}
+
+@keyframes flotar-lewis {
+    0%, 100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(-1deg);
+    }
+}
+
+@keyframes flotar-sylveon {
+    0%, 100% {
+        transform: translateY(0) rotate(7deg);
+    }
+
+    50% {
+        transform: translateY(8px) rotate(11deg);
+    }
+}
+
+@keyframes flotar-kit {
+    0%, 100% {
+        transform: translateY(0) rotate(-10deg);
+    }
+
+    50% {
+        transform: translateY(-7px) rotate(-6deg);
+    }
+}
+
+/* Menú */
+
+@keyframes choose-aura {
+    0%, 100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.65;
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.08);
+        opacity: 1;
+    }
+}
+
+@keyframes choose-resplandor {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.55;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
+}
+
+@keyframes choose-circulo {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes choose-imagen {
+    0%, 100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -6px;
+    }
+}
+
+@keyframes choose-destellos {
+    0%, 100% {
+        opacity: 0.2;
+        translate: 0 0;
+    }
+
+    50% {
+        opacity: 0.6;
+        translate: 0 -5px;
+    }
+}
+
+@keyframes choose-corazon {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.55;
+    }
+
+    50% {
+        transform: scale(1.2) rotate(-10deg);
+        opacity: 1;
+    }
+}
+
+@keyframes boton-estrella {
+    0%, 100% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(20deg) scale(1.2);
+    }
+}
+
+@keyframes boton-corazon {
+    0%, 100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 5px;
+    }
+}
+
+/* Gorgeous */
+
+@keyframes mensaje-gorgeous-mover {
+    0%, 100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 12px;
+    }
+}
+
+@keyframes mensaje-estrella {
+    0%, 100% {
+        transform: rotate(0deg) scale(1);
+        opacity: 0.65;
+    }
+
+    50% {
+        transform: rotate(20deg) scale(1.2);
+        opacity: 1;
+    }
+}
+
+@keyframes mensaje-corazon {
+    0%, 100% {
+        translate: 0 0;
+        scale: 1;
+        opacity: 0.65;
+    }
+
+    50% {
+        translate: 0 5px;
+        scale: 1.15;
+        opacity: 1;
+    }
+}
+
+/* =====================================================
+   10. RESPONSIVE: TABLET Y PANTALLAS MEDIANAS
+===================================================== */
+
+@media (max-width: 1100px) {
+    .playlist-contenido {
+        gap: 28px;
+    }
+
+    .spotify {
+        width: auto;
+        min-width: 0;
+    }
+
+    .playlist-derecha {
+        flex-basis: 330px;
+        width: 330px;
+    }
+
+    .texto-playlist {
+        width: 100%;
+    }
+
+    .portada-playlist {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    .gallery-contenido {
+        width: 100%;
+    }
+
+    .gallery-extra.light {
+        left: 10px;
+    }
+
+    .gallery-extra.god {
+        right: 10px;
+    }
+
+    .gallery-extra.tomo {
+        right: 135px;
+    }
+
+    .gallery-extra.lewis {
+        left: 140px;
+    }
+
+    .gallery-extra.sylveon {
+        right: 150px;
+    }
+
+    .gallery-extra.kit {
+        left: 160px;
+    }
+}
+
+/* =====================================================
+   11. RESPONSIVE: GORGEOUS
+===================================================== */
+
+@media (max-width: 900px) {
+    .gorgeous-pagina {
+        width: 95%;
+        min-height: 0;
+        padding: 28px 18px;
+    }
+
+    .gorgeous-contenido {
+        height: auto;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 18px;
+    }
+
+    .mensaje-final-gorgeous {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+
+        width: 100%;
+        max-width: 500px;
+        padding: 16px 18px;
+
+        font-size: 14px;
+        line-height: 1.6;
+
+        order: 1;
+    }
+
+    .gorgeous-contenido .imagen-gorgeous {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+
+        width: 100%;
+        max-width: 550px;
+        height: 330px;
+
+        order: 2;
+    }
+
+    .mensaje-gorgeous {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+
+        width: 95%;
+        max-width: 420px;
+        padding: 15px 18px;
+
+        font-size: 15px;
+        animation: none;
+
+        order: 3;
+    }
+
+    .mensaje1,
+    .mensaje2,
+    .mensaje3,
+    .mensaje4,
+    .mensaje5,
+    .mensaje6,
+    .mensaje7,
+    .mensaje8 {
+        left: auto;
+        right: auto;
+        top: auto;
+    }
+}
+
+/* =====================================================
+   12. RESPONSIVE: MENÚ
+===================================================== */
+
+@media (max-width: 900px) {
+    .choose {
+        width: 95%;
+        min-height: 0;
+        padding: 35px 18px 30px;
+    }
+
+    .choose .arco {
+        width: 100%;
+        height: 540px;
+        margin-top: 15px;
+    }
+
+    .choose .arco::before {
+        width: 330px;
+        height: 330px;
+        top: 100px;
+    }
+
+    .choose .boton1 {
+        left: calc(50% - 87.5px);
+        top: 455px;
+    }
+
+    .choose .boton3 {
+        left: calc(50% - 87.5px);
+        top: 18px;
+    }
+
+    .choose .boton4 {
+        left: 4%;
+        top: 245px;
+    }
+
+    .choose .boton2 {
+        right: 4%;
+        top: 245px;
+    }
+
+    .choose .imagen-choose {
+        top: 135px;
+
+        width: 240px;
+        height: 240px;
+    }
+
+    .choose .imagen-choose::before {
+        width: 260px;
+        height: 260px;
+    }
+
+    .choose .imagen-choose::after {
+        width: 310px;
+        height: 310px;
+    }
+}
+
+/* =====================================================
+   13. RESPONSIVE: GALERÍA
+===================================================== */
+
+@media (max-width: 900px) {
+    .gallery-pagina {
+        width: 95%;
+        min-height: 0;
+        padding: 25px 20px;
+    }
+
+    .gallery-pagina h1 {
+        font-size: 36px;
+        margin-top: 5px;
+    }
+
+    .texto-gallery {
+        width: 100%;
+        max-width: 600px;
+        padding: 21px 24px;
+    }
+
+    .texto-gallery p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .gallery-contenido {
+        height: auto;
+        margin-top: 15px;
+
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+
+        align-items: center;
+        justify-items: center;
+    }
+
+    /* La imagen central se muestra primero en el móvil */
+
+    .imagen-gallery {
+        position: relative;
+        left: auto;
+        top: auto;
+
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1.3 / 1;
+
+        transform: none;
+        grid-column: 1 / -1;
+        order: -1;
+    }
+
+    .gallery-extra {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 1 / 1;
+
+        padding: 7px;
+
+        transform: none !important;
+        animation: none;
+
+        border-radius: 14px;
+    }
+
+    .gallery-extra:hover {
+        transform: scale(1.04) !important;
+    }
+
+    .gallery-pagina .volver {
+        margin-top: 24px;
+    }
+}
+
+/* =====================================================
+   14. RESPONSIVE: PLAYLIST
+===================================================== */
+
+@media (max-width: 850px) {
+    .playlist-pagina {
+        width: 95%;
+        min-height: 0;
+        padding: 35px 25px;
+    }
+
+    .playlist-pagina h1 {
+        margin-bottom: 30px;
+    }
+
+    .playlist-contenido {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .spotify {
+        width: 100%;
+        max-width: 600px;
+        flex: none;
+        margin-top: 0;
+    }
+
+    .playlist-derecha {
+        width: 100%;
+        max-width: 500px;
+        flex: none;
+
+        right: auto;
+        padding-top: 10px;
+
+        align-items: center;
+    }
+
+    .texto-playlist {
+        width: 100%;
+        max-width: 500px;
+        padding: 24px 25px;
+    }
+
+    .portada-playlist {
+        width: min(350px, 100%);
+        height: auto;
+        aspect-ratio: 1 / 1;
+        margin-top: 10px;
+    }
+
+    .portada-playlist img {
+        top: 0;
+    }
+
+    .playlist-pagina .volver {
+        margin-top: 20px;
+    }
+}
+
+/* =====================================================
+   15. RESPONSIVE: POEMA
+===================================================== */
+
+@media (max-width: 700px) {
+    .poem-pagina {
+        width: 95%;
+        max-width: 95vw;
+        padding: 25px 18px;
+    }
+
+    .poem-pagina h1 {
+        font-size: 31px;
+        margin-bottom: 20px;
+    }
+
+    .poema-texto {
+        padding: 24px 20px;
+    }
+
+    .poema-texto h2 {
+        font-size: 23px;
+        margin-bottom: 18px;
+    }
+
+    .poema-versos {
+        column-gap: 20px;
+        row-gap: 16px;
+    }
+
+    .poema-versos p {
+        padding: 0 4px 13px;
+        font-size: 14px;
+        line-height: 1.7;
+        text-align: center;
+    }
+
+    .poema-firma {
+        margin-top: 20px;
+        font-size: 15px;
+    }
+}
+
+/* =====================================================
+   16. RESPONSIVE: TELÉFONOS
+===================================================== */
+
+@media (max-width: 600px) {
+    body {
+        padding: 18px 10px;
+        background-attachment: scroll;
+    }
+
+    main {
+        width: 100%;
+        min-height: 0;
+        padding: 30px 20px;
+        border-radius: 22px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    /* Inicio */
+
+    .inicio {
+        min-height: 600px;
+        gap: 12px;
+    }
+
+    .carta {
+        height: 260px;
+    }
+
+    .corazon {
+        font-size: 72px;
+    }
+
+    .mensaje-index p {
+        font-size: 20px;
+    }
+
+    .boton-index {
+        padding: 14px 36px;
+    }
+
+    /* Menú */
+
+    .choose {
+        padding: 30px 14px;
+    }
+
+    .choose h1 {
+        font-size: 34px;
+        letter-spacing: 2px;
+    }
+
+    .choose .arco {
+        height: 490px;
+    }
+
+    .choose .arco::before {
+        width: 260px;
+        height: 260px;
+        top: 100px;
+    }
+
+    .choose .arco::after {
+        font-size: 14px;
+        letter-spacing: 4px;
+    }
+
+    .choose .boton {
+        width: 145px;
+        height: 55px;
+        font-size: 16px;
+    }
+
+    .choose .boton1 {
+        left: calc(50% - 72.5px);
+        top: 415px;
+    }
+
+    .choose .boton3 {
+        left: calc(50% - 72.5px);
+        top: 15px;
+    }
+
+    .choose .boton4 {
+        left: 0;
+        top: 235px;
+    }
+
+    .choose .boton2 {
+        right: 0;
+        top: 235px;
+    }
+
+    .choose .imagen-choose {
+        top: 135px;
+
+        width: 190px;
+        height: 190px;
+    }
+
+    .choose .imagen-choose::before {
+        width: 210px;
+        height: 210px;
+    }
+
+    .choose .imagen-choose::after {
+        width: 260px;
+        height: 260px;
+    }
+
+    /* Gorgeous */
+
+    .gorgeous-pagina {
+        padding: 25px 15px;
+    }
+
+    .gorgeous-pagina h1 {
+        font-size: 31px;
+    }
+
+    .mensaje-final-gorgeous {
+        font-size: 13px;
+        padding: 14px;
+    }
+
+    .gorgeous-contenido .imagen-gorgeous {
+        height: 250px;
+    }
+
+    .mensaje-gorgeous {
+        width: 95%;
+        font-size: 14px;
+    }
+
+    /* Galería */
+
+    .gallery-pagina {
+        padding: 25px 14px;
+    }
+
+    .gallery-pagina h1 {
+        font-size: 32px;
+    }
+
+    .texto-gallery {
+        padding: 18px 17px;
+    }
+
+    .texto-gallery p {
+        font-size: 14px;
+    }
+
+    .gallery-contenido {
+        gap: 12px;
+    }
+
+    .gallery-extra {
+        padding: 5px;
+        border-radius: 11px;
+    }
+
+    /* Playlist */
+
+    .playlist-pagina {
+        padding: 28px 16px;
+    }
+
+    .playlist-pagina h1 {
+        font-size: 32px;
+        margin-bottom: 25px;
+    }
+
+    .texto-playlist {
+        padding: 21px 19px;
+    }
+
+    .texto-playlist p {
+        font-size: 14px;
+    }
+
+    /* Poema */
+
+    .poem-pagina {
+        padding: 22px 13px;
+        border-radius: 17px;
+    }
+
+    .poem-pagina h1 {
+        font-size: 27px;
+        line-height: 1.4;
+    }
+
+    .poema-texto {
+        padding: 20px 13px;
+        border-radius: 16px;
+    }
+
+    .poema-versos {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-auto-flow: row;
+        row-gap: 14px;
+    }
+
+    .poema-versos p {
+        padding: 0 5px 13px;
+        font-size: 14px;
+        line-height: 1.75;
+        text-align: center;
+        border-bottom: 1px solid rgba(164, 148, 255, 0.30);
+    }
+
+    .poema-versos p:nth-child(4),
+    .poema-versos p:nth-child(7) {
+        border-bottom: 1px solid rgba(164, 148, 255, 0.30);
+        padding-bottom: 13px;
+    }
+
+    .poema-versos p:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .poema-firma {
+        margin-top: 18px;
+        font-size: 14px;
+    }
+
+    .poem-pagina .volver {
+        margin-top: 18px;
+    }
+
+    /* Botones de regreso */
+
+    .volver {
+        font-size: 15px;
+        padding: 12px 26px;
+    }
+}
+
+/* =====================================================
+   17. MÓVILES MUY PEQUEÑOS
+===================================================== */
+
+@media (max-width: 380px) {
+    .choose h1 {
+        font-size: 29px;
+    }
+
+    .choose .boton {
+        width: 125px;
+        height: 51px;
+        font-size: 14px;
+    }
+
+    .choose .boton1,
+    .choose .boton3 {
+        left: calc(50% - 62.5px);
+    }
+
+    .choose .boton4 {
+        left: 0;
+    }
+
+    .choose .boton2 {
+        right: 0;
+    }
+
+    .choose .imagen-choose {
+        width: 165px;
+        height: 165px;
+        top: 145px;
+    }
+
+    .choose .imagen-choose::before {
+        width: 185px;
+        height: 185px;
+    }
+
+    .choose .imagen-choose::after {
+        width: 225px;
+        height: 225px;
+    }
+
+    .gallery-pagina h1 {
+        font-size: 28px;
+    }
+
+    .poem-pagina h1 {
+        font-size: 24px;
+    }
+}
+
+/* =====================================================
+   18. RESPETAR PREFERENCIAS DE MOVIMIENTO
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

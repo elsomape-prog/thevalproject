@@ -1,0 +1,194 @@
+
+/* =========================
+   POPUP DE LA SORPRESA
+========================= */
+
+[hidden] {
+    display: none !important;
+}
+
+.popup-fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(39, 26, 68, .65);
+    backdrop-filter: blur(7px);
+    animation: popup-aparecer .5s ease;
+}
+
+.popup-contenido {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    padding: 35px 30px;
+    box-sizing: border-box;
+    border: 2px solid rgba(164, 148, 255, .55);
+    border-radius: 28px;
+    background: linear-gradient(145deg, #ffffff, #f3efff);
+    box-shadow:
+        0 20px 60px rgba(25, 14, 55, .35),
+        inset 0 0 25px rgba(164, 148, 255, .12);
+    text-align: center;
+    animation: popup-entrada .65s ease;
+}
+
+.popup-corazon {
+    color: #7568e8;
+    font-size: 65px;
+    line-height: 1.2;
+    animation: popup-latido 1.5s ease-in-out infinite;
+}
+
+.popup-contenido h2 {
+    margin: 12px 0;
+    color: #5a4fcf;
+    font-size: 34px;
+}
+
+.popup-contenido p {
+    color: #625a78;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.boton-sorpresa {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 15px 25px;
+    border: 2px solid rgba(164, 148, 255, .45);
+    border-radius: 15px;
+    background: linear-gradient(135deg, #667eea, #7568e8);
+    box-shadow: 0 8px 20px rgba(90, 79, 207, .25);
+    color: white;
+    font-family: Georgia, serif;
+    font-size: 17px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.boton-sorpresa:hover {
+    background: linear-gradient(135deg, #7568e8, #8b7df0);
+    box-shadow: 0 12px 28px rgba(90, 79, 207, .35);
+    transform: translateY(-3px) scale(1.04);
+}
+
+.popup-destellos {
+    margin-top: 25px;
+    color: #a494ff;
+    font-size: 24px;
+    letter-spacing: 5px;
+    animation: popup-brillo 2s ease-in-out infinite;
+}
+
+/* =========================
+   ANIMACIONES DEL POPUP
+========================= */
+
+@keyframes popup-aparecer {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popup-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes popup-latido {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+@keyframes popup-brillo {
+    0%, 100% {
+        opacity: .5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* =========================
+   PAGINA FINAL
+========================= */
+
+.surprise-page {
+    width: min(900px, 95vw);
+    min-height: 500px;
+    padding: 45px 30px;
+    box-sizing: border-box;
+    background: linear-gradient(145deg, #ffffff, #f3efff);
+    border: 2px solid rgba(164, 148, 255, .35);
+    text-align: center;
+}
+
+.surprise-page h1 {
+    color: #5a4fcf;
+    font-size: 42px;
+}
+
+.surprise-heart {
+    margin: 20px 0;
+    color: #7568e8;
+    font-size: 100px;
+    animation: popup-latido 1.5s ease-in-out infinite;
+}
+
+.surprise-message {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    color: #625a78;
+    font-size: 20px;
+    line-height: 1.8;
+}
+
+@media (max-width: 600px) {
+    .popup-contenido {
+        padding: 28px 20px;
+    }
+
+    .popup-contenido h2 {
+        font-size: 28px;
+    }
+
+    .popup-contenido p {
+        font-size: 15px;
+    }
+
+    .boton-sorpresa {
+        padding: 13px 18px;
+        font-size: 15px;
+    }
+
+    .surprise-page h1 {
+        font-size: 32px;
+    }
+
+    .surprise-message {
+        font-size: 17px;
+    }
+}

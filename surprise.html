@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Last Surprise ♡</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sorpresa.css">
+    
+    <style>
+        .volver-sorpresa {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease;
+        }
+
+        .volver-sorpresa.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="surprise-page">
+
+        <div class="surprise-heart">♡</div>
+
+        <h1>Tengo algo que decirte...</h1>
+<br>
+<br>
+<br>
+<br>
+        <a href="youchoose.html" class="volver volver-sorpresa" id="volver-menu">
+            Back to the Menu ♡
+        </a>
+
+    </main>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                document.getElementById("volver-menu").classList.add("visible");
+            }, 30000);
+        });
+    </script>
+
+    <script src="visitas.js"></script>
+
+</body>
+</html>
